@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import "./Map.css";
 
 function Map() {
   mapboxgl.accessToken =
@@ -16,7 +17,7 @@ function Map() {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v11",
+      style: "mapbox://styles/elias0040/cl34hbw1j009114mm3kxt3hg1/",
       center: [lng, lat],
       zoom: zoom,
     });
