@@ -14,9 +14,14 @@ function Map() {
   const [lat, setLat] = useState(0);
   const [zoom, setZoom] = useState(0);
 
-  const [focusedCountry, setFocusedCountry] = useState(null);
   //const [hoveredCountry, setHoveredCountry] = useState(null);
+  let focusedCountry = null;
   let hoveredCountry = null;
+
+  const handleCountryClick = () => {
+    if (hoveredCountry != null) {
+    }
+  };
 
   useEffect(() => {
     if (hoveredCountry == null) return;
@@ -62,8 +67,10 @@ function Map() {
           "fill-color": "#1DB954",
           "fill-opacity": [
             "case",
-            ["boolean", ["feature-state", "hover"], false],
+            ["boolean", ["feature-state", "click"], false],
             1,
+            ["boolean", ["feature-state", "hover"], false],
+            0.2,
             0,
           ],
         },
@@ -122,6 +129,30 @@ function Map() {
             { hover: false }
           );
         }
+        hoveredCountry = null;
+      });
+
+      map.current.on("click", "selected", (e) => {
+        if (hoveredCountry !== null) {
+          map.current.setFeatureState(
+            {
+              source: "country-boundaries",
+              sourceLayer: "country_boundaries",
+              id: focusedCountry,
+            },
+            { hover: false, click: false }
+          );
+
+          map.current.setFeatureState(
+            {
+              source: "country-boundaries",
+              sourceLayer: "country_boundaries",
+              id: hoveredCountry,
+            },
+            { hover: true, click: true }
+          );
+        }
+        focusedCountry = e.features[0].id;
         hoveredCountry = null;
       });
     });
