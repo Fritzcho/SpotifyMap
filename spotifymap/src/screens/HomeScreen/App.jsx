@@ -43,8 +43,21 @@ function App() {
         </a>
       </header>
       <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
-        <Map />
+        <div className="Map">
+          <Map />
+          {selectedCountry == null ? null : (
+            <Info name={selectedCountry.properties.name_en} />
+          )}
+        </div>
       </MapContext.Provider>
+    </div>
+  );
+}
+
+function Info(props) {
+  return (
+    <div className="infoContainer">
+      <h2>{props.name}</h2>
     </div>
   );
 }
