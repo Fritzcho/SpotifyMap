@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import "./Map.css";
 import { layer_selected, layer_hovered } from "./layers";
+import MapContext from "./MapContext";
 
 function Map() {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiZWxpYXMwMDQwIiwiYSI6ImNsMzRmaXMybTAyNjQza3J1YTB1a2o1MXQifQ.id3jv1QrmMUTdVZ5zdub0Q";
+
+  const { setSelectedCountry } = useContext(MapContext);
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -15,6 +18,7 @@ function Map() {
   const [zoom, setZoom] = useState(0);
 
   //const [hoveredCountry, setHoveredCountry] = useState(null);
+
   let focusedCountry = null;
   let hoveredCountry = null;
 
@@ -151,8 +155,11 @@ function Map() {
             },
             { hover: true, click: true }
           );
+
+          focusedCountry = e.features[0].id;
+          setSelectedCountry(e.features[0]);
         }
-        focusedCountry = e.features[0].id;
+
         hoveredCountry = null;
       });
     });

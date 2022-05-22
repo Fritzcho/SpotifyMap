@@ -9,9 +9,11 @@ import {
 } from "../../utils/spotifyclient";
 
 import Map from "../../components/Map/Map.jsx";
+import MapContext from "../../components/Map/MapContext";
 
 function App() {
   const [token, setToken] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -40,7 +42,9 @@ function App() {
           Login to Spotify
         </a>
       </header>
-      <Map />
+      <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
+        <Map />
+      </MapContext.Provider>
     </div>
   );
 }
