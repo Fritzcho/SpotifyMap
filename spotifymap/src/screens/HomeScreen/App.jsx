@@ -9,6 +9,7 @@ import {
 } from "../../utils/spotifyclient";
 
 import Map from "../../components/Map/Map.jsx";
+import Song from "../../components/Song/Song.jsx";
 import MapContext from "../../components/Map/MapContext";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
 
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <div className="App">
+      {/*<Song token={token}></Song> COMMENT OUT AT OWN RISK*/}
       <header className="App-header">
         <a
           href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
