@@ -1,5 +1,7 @@
 .smap__navbar {
   background: #191414;
+  display: flex;
+  justify-content: space-between;
 }
 
 .smap__navbar--icon {
@@ -8,4 +10,19 @@
   padding-left: 2rem;
   padding-right: 2rem;
   padding-top: 2rem;
+}
+
+.smap__navbar--links {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.smap__navbar--links a {
+  color: white;
+  list-style: none;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  text-decoration: none;
 }
