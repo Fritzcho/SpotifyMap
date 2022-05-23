@@ -1,0 +1,22 @@
+img{
+    max-width: 100%;
+}
+
+h3{
+    font-size: 1.5em;
+}
+
+.Song{
+    display: grid;
+    grid-template-columns: 30% auto;
+    background-color: #282C34;
+    color: white;
+    width: fit-content;
+}
+
+.songDescription{
+    display: block;
+    flex-direction: column;
+    padding-left: 10%;
+    text-align: left;
+}

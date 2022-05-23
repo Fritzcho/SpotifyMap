@@ -1,14 +1,34 @@
-/*import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { GET_TRACK } from "../../utils/spotifyclient";
+import "./Song.css";
 
-function Song(){
-    return{
+function Song(token, trackEndpoint){
+    const [song, setSong] = useState([]);
+
+    useEffect(()=>{
+        const fetchData = async () =>{
+          const res = await GET_TRACK(token, trackEndpoint);
+          console.log("DATA: " + res)
+          setSong(res);
+        };
+        fetchData().then(
+        ).catch(e =>{
+          console.log(e);
+        })
+    
+      }, []);
+
+    return(
         <div className="Song">
-            <div className="coverArt">
-
-            </div>
-            <div className="songInfo">
-
-            </div>
+         <div className="coverArt">
+            <img src={song.album.images[0].url} alt="" />
+          </div>
+          <div className="songDescription">
+            <h3>{song.name}</h3>
+            <p>{song.album.artists[0].name}</p>
+          </div>
         </div>
-    }
-}*/
+    )     
+}
+
+export default Song;
