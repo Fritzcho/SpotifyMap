@@ -3,9 +3,10 @@ import { GET_TRACK } from "../../utils/spotifyclient";
 import "./Song.css";
 
 function Song(token, trackEndpoint){
-    const [song, setSong] = useState([]);
+    const [song, setSong] = useState(null);
 
     useEffect(()=>{
+        console.log("IN USE EFFECT")
         const fetchData = async () =>{
           const res = await GET_TRACK(token, trackEndpoint);
           console.log("DATA: " + res)
@@ -18,7 +19,11 @@ function Song(token, trackEndpoint){
     
       }, []);
 
-    return(
+    if (song === null){
+      return(<div>No song</div>)
+    }
+    else{
+      return(
         <div className="Song">
          <div className="coverArt">
             <img src={song.album.images[0].url} alt="" />
@@ -28,7 +33,8 @@ function Song(token, trackEndpoint){
             <p>{song.album.artists[0].name}</p>
           </div>
         </div>
-    )     
+    ) 
+    }      
 }
 
 export default Song;
