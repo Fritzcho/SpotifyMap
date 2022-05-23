@@ -9,7 +9,7 @@ function Map() {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiZWxpYXMwMDQwIiwiYSI6ImNsMzRmaXMybTAyNjQza3J1YTB1a2o1MXQifQ.id3jv1QrmMUTdVZ5zdub0Q";
 
-  const { setSelectedCountry } = useContext(MapContext);
+  const { selectedCountry, setSelectedCountry } = useContext(MapContext);
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -21,11 +21,6 @@ function Map() {
 
   let focusedCountry = null;
   let hoveredCountry = null;
-
-  const handleCountryClick = () => {
-    if (hoveredCountry != null) {
-    }
-  };
 
   useEffect(() => {
     if (hoveredCountry == null) return;
@@ -159,6 +154,8 @@ function Map() {
           focusedCountry = e.features[0].id;
           setSelectedCountry(e.features[0]);
         }
+        console.log(e.coord);
+        //map.current.fitBounds(e.features.getBounds());
 
         hoveredCountry = null;
       });

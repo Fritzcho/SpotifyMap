@@ -10,6 +10,7 @@ import {
 
 import Map from "../../components/Map/Map.jsx";
 import MapContext from "../../components/Map/MapContext";
+import CountryInfo from "../../components/CountryInfo/CountryInfo";
 
 function App() {
   const [token, setToken] = useState("");
@@ -46,7 +47,10 @@ function App() {
         <div className="Map">
           <Map />
           {selectedCountry == null ? null : (
-            <Info name={selectedCountry.properties.name_en} />
+            <CountryInfo
+              name={selectedCountry.properties.name_en}
+              coords={selectedCountry.geometry.coordinates[0][0][0]}
+            />
           )}
         </div>
       </MapContext.Provider>
