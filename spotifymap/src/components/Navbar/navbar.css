@@ -1,0 +1,11 @@
+.smap__navbar {
+  background: #191414;
+}
+
+.smap__navbar--icon {
+  color: #1db954;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2rem;
+}
