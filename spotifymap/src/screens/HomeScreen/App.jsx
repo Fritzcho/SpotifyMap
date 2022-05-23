@@ -9,9 +9,12 @@ import {
 } from "../../utils/spotifyclient";
 
 import Map from "../../components/Map/Map.jsx";
+import MapContext from "../../components/Map/MapContext";
+import CountryInfo from "../../components/CountryInfo/CountryInfo";
 
 function App() {
   const [token, setToken] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -40,7 +43,25 @@ function App() {
           Login to Spotify
         </a>
       </header>
-      <Map />
+      <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
+        <div className="Map">
+          <Map />
+          {selectedCountry == null ? null : (
+            <CountryInfo
+              name={selectedCountry.properties.name_en}
+              coords={selectedCountry.geometry.coordinates[0][0][0]}
+            />
+          )}
+        </div>
+      </MapContext.Provider>
+    </div>
+  );
+}
+
+function Info(props) {
+  return (
+    <div className="infoContainer">
+      <h2>{props.name}</h2>
     </div>
   );
 }
