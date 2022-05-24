@@ -7,6 +7,7 @@ import {
   RESPONSE_TYPE,
   AUTH_ENDPOINT,
 } from "../../utils/spotifyclient";
+import { useJwt } from 'react-jwt';
 
 import Map from "../../components/Map/Map.jsx";
 import Song from "../../components/Song/Song.jsx";
@@ -16,10 +17,17 @@ import CountryInfo from "../../components/CountryInfo/CountryInfo";
 function App() {
   const [token, setToken] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const { decodedToken, isExpired } = useJwt(token);
 
   useEffect(() => {
     const hash = window.location.hash
-    let token = window.localStorage.getItem("token")
+    let token = window.localStorage.getItem("token");
+
+    console.log(isExpired)
+    if (isExpired) {
+      setToken("")
+      window.localStorage.removeItem("token")
+    }
 
     if (!token && hash) {
         token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
