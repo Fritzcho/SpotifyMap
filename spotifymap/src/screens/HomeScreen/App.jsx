@@ -39,7 +39,7 @@ function App() {
     setToken(token)
 
   }, [])
-
+  console.log("TOKEN FROM APP: " + token)
 
   return (
     <div className="App">
@@ -48,7 +48,9 @@ function App() {
           <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
               to Spotify</a>
           : ""}
-
+        {token ?
+          <Song token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2VLOk7b6lCRsD93bEfLcUn"></Song> : ""
+        }
       </header>
       <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
         <div className="Map">
