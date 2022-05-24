@@ -9,6 +9,7 @@ import {
 } from "../../utils/spotifyclient";
 
 import Map from "../../components/Map/Map.jsx";
+import Song from "../../components/Song/Song.jsx";
 import MapContext from "../../components/Map/MapContext";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
 
