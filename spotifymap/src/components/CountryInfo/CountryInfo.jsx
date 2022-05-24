@@ -4,13 +4,13 @@ import axios from 'axios'
 import PulseLoader from "react-spinners/PulseLoader";
 
 export default function CountryInfo(props) {
-  const { tracks, setTracks } = useState([]);
+  const [tracks, setTracks] = useState([]);
   const { loading, setLoading } = useState(true);
   const getPlaylistId = async (e) => {
     let token = window.localStorage.getItem("token")
     console.log(token)
     e.preventDefault()
-    var {data} = await axios.get("https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country="+"DK", {
+    const {data} = await axios.get("https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country="+"DK", {
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`
@@ -20,14 +20,13 @@ export default function CountryInfo(props) {
     {/*item.name === "Topp 50 – Sverige"*/}
     const id = data.playlists.items.find(item => item.name.includes("Topp 50")).id
     e.preventDefault()
-    var {data} = await axios.get("https://api.spotify.com/v1/playlists/"+id, {
+    const response = await axios.get("https://api.spotify.com/v1/playlists/"+id, {
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`
         }
     })
-    
-    console.log(data)
+    setTracks(response.data.tracks.items)
   }
 
   useEffect(() => {}, [loading]);
