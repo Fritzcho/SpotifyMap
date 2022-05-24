@@ -8,7 +8,6 @@ export default function CountryInfo(props) {
   const { loading, setLoading } = useState(true);
   const getPlaylistId = async (e) => {
     let token = window.localStorage.getItem("token")
-    console.log(token)
     e.preventDefault()
     const {data} = await axios.get("https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country="+"DK", {
         headers: {

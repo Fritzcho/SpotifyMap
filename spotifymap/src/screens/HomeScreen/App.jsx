@@ -17,7 +17,7 @@ import CountryInfo from "../../components/CountryInfo/CountryInfo";
 function App() {
   const [token, setToken] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
-  const { decodedToken, isExpired } = useJwt(token);
+  const { decodedToken, isExpired } = useJwt(window.localStorage.getItem("token"));
 
   useEffect(() => {
     const hash = window.location.hash
