@@ -5,9 +5,10 @@ export const RESPONSE_TYPE = 'token';
 
 export const GET_TRACK = async (token, trackEndpoint) =>{
     //HÅRDKODAD MED EXEMPELDATA. CORS BRÅKAR NÄR JAG SKICKAR EN STRÄNG MED PARAMTERAR
-    const res = await fetch("https://api.spotify.com/v1/tracks/11dFghVXANMlKmJXsNCbNl",{
+    console.log(trackEndpoint)
+    const res = await fetch(JSON.stringify(trackEndpoint),{
         method: 'GET',
-        headers: {'Authorization': 'Bearer BQD6Bsfhq09tZ8DDjnVIwKT2tumzyDEqPsh2YcUu7iGPbWiC66HS9M0GK09eROiH7CFAd8djvAsS5OHJp9ePmrrISLc4VDLGmtHO4A6Ym7zUvC-evXI7UnWl3O--g9H0K7faANcEHfhSslkGOUtUbUk46RrH5qaMGIY'}
+        headers: {'Authorization': 'Bearer ' + token,'Content-Type': 'json', 'Accept': 'json'}
     });
     console.log(res)
     const data = await res.json();

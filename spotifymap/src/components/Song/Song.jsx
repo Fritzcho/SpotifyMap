@@ -6,6 +6,8 @@ function Song(token, trackEndpoint){
     const [song, setSong] = useState(null);
 
     useEffect(()=>{
+        //debugging
+        console.log("TRACK ENDPOINT " + trackEndpoint)
         console.log("IN USE EFFECT")
         const fetchData = async () =>{
           const res = await GET_TRACK(token, trackEndpoint);
