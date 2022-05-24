@@ -7,7 +7,7 @@ import {
   RESPONSE_TYPE,
   AUTH_ENDPOINT,
 } from "../../utils/spotifyclient";
-import { useJwt } from 'react-jwt';
+import { useJwt } from "react-jwt";
 
 import Map from "../../components/Map/Map.jsx";
 import Song from "../../components/Song/Song.jsx";
@@ -20,37 +20,50 @@ function App() {
   const { decodedToken, isExpired } = useJwt(token);
 
   useEffect(() => {
-    const hash = window.location.hash
+    const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
 
-    console.log(isExpired)
+    console.log(isExpired);
     if (isExpired) {
-      setToken("")
-      window.localStorage.removeItem("token")
+      setToken("");
+      window.localStorage.removeItem("token");
     }
 
     if (!token && hash) {
-        token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+      token = hash
+        .substring(1)
+        .split("&")
+        .find((elem) => elem.startsWith("access_token"))
+        .split("=")[1];
 
-        window.location.hash = ""
-        window.localStorage.setItem("token", token)
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
     }
 
-    setToken(token)
-
-  }, [])
-  console.log("TOKEN FROM APP: " + token)
+    setToken(token);
+  }, []);
+  console.log("TOKEN FROM APP: " + token);
 
   return (
     <div className="App">
       <header className="App-header">
-        {!token ?
-          <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login
-              to Spotify</a>
-          : ""}
-        {token ?
-          <Song token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2VLOk7b6lCRsD93bEfLcUn"></Song> : ""
-        }
+        {!token ? (
+          <a
+            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+          >
+            Login to Spotify
+          </a>
+        ) : (
+          ""
+        )}
+        {token ? (
+          <Song
+            token={token}
+            trackEndpoint="https://api.spotify.com/v1/tracks/2VLOk7b6lCRsD93bEfLcUn"
+          ></Song>
+        ) : (
+          ""
+        )}
       </header>
       <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
         <div className="Map">
@@ -59,6 +72,7 @@ function App() {
             <CountryInfo
               name={selectedCountry.properties.name_en}
               coords={selectedCountry.geometry.coordinates[0][0][0]}
+              code={selectedCountry.properties.iso_3166_1_alpha_3}
             />
           )}
         </div>
