@@ -26,3 +26,9 @@
   margin-right: 2vw;
   text-decoration: none;
 }
+
+.smap-navbar--logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
