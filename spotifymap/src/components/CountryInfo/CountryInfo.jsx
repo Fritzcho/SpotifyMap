@@ -1,42 +1,79 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./CountryInfo.css";
-import axios from 'axios'
+import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
+import Song from "../Song/Song";
+import MapContext from "../Map/MapContext";
 
 export default function CountryInfo(props) {
+  const { selectedCountry } = useContext(MapContext);
   const [tracks, setTracks] = useState([]);
-  const { loading, setLoading } = useState(true);
-  const getPlaylistId = async (e) => {
-    let token = window.localStorage.getItem("token")
-    console.log(token)
-    e.preventDefault()
-    const {data} = await axios.get("https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country="+"DK", {
-        headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`
-        }
-    })
+  const [loading, setLoading] = useState(true);
+  const token = window.localStorage.getItem("token");
+  const getPlaylistId = async () => {
+    console.log(token);
 
-    {/*item.name === "Topp 50 – Sverige"*/}
-    const id = data.playlists.items.find(item => item.name.includes("Topp 50")).id
-    e.preventDefault()
-    const response = await axios.get("https://api.spotify.com/v1/playlists/"+id, {
-        headers: {
+    try {
+      const { data } = await axios.get(
+        "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country=" +
+          props.code,
+        {
+          headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+          },
         }
-    })
-    setTracks(response.data.tracks.items)
-  }
+      );
+      const id = data.playlists.items.find((item) =>
+        item.name.includes("Topp 50")
+      ).id;
+      const response = await axios.get(
+        "https://api.spotify.com/v1/playlists/" + id,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      setTracks(response.data.tracks.items);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
 
-  useEffect(() => {}, [loading]);
+    {
+      /*item.name === "Topp 50 – Sverige"*/
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    getPlaylistId();
+  }, [selectedCountry]);
+
+  useEffect(() => {
+    console.log(tracks);
+  }, [tracks]);
+
   return (
     <div className="infoContainer">
       <h2>{props.name}</h2>
-      {!loading ? (
+      {loading ? (
         <PulseLoader color={"green"} loading={loading} size={20} />
       ) : (
-        <p>dsad</p>
+        <div className="songContainer">
+          {tracks.map((track) => {
+            return (
+              <Song
+                token={token}
+                trackEndpoint={track.track.href}
+                song={track.track}
+              />
+            );
+          })}
+        </div>
       )}
       <button onClick={getPlaylistId}>Test get</button>
     </div>

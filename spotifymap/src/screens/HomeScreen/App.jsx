@@ -56,14 +56,6 @@ function App() {
         ) : (
           ""
         )}
-        {token ? (
-          <Song
-            token={token}
-            trackEndpoint="https://api.spotify.com/v1/tracks/2VLOk7b6lCRsD93bEfLcUn"
-          ></Song>
-        ) : (
-          ""
-        )}
       </header>
       <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
         <div className="Map">
