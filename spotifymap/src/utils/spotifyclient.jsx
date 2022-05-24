@@ -4,9 +4,6 @@ export const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
 export const RESPONSE_TYPE = 'token';
 
 export const GET_TRACK = async (token, trackEndpoint) =>{
-    //HÅRDKODAD MED EXEMPELDATA. CORS BRÅKAR NÄR JAG SKICKAR EN STRÄNG MED PARAMTERAR
-    console.log('EP: ' + trackEndpoint)
-    console.log(`Bearer: ${token}`)
     const res = await fetch(trackEndpoint,{
         method: 'GET',
         headers: {'Authorization': `Bearer ${token}`,'Content-Type': 'json', 'Accept': 'json'}

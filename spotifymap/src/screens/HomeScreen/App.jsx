@@ -42,7 +42,6 @@ function App() {
 
     setToken(token);
   }, []);
-  console.log("TOKEN FROM APP: " + token);
 
   return (
     <div className="App">
