@@ -2,6 +2,9 @@
   background: #191414;
   display: flex;
   justify-content: space-between;
+  position: absolute;
+  width: 100vw;
+  z-index: 10;
 }
 
 .smap__navbar--icon {

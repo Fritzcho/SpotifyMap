@@ -46,17 +46,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        {!token ? (
+      {!token ? (
+        <header className="App-header">
           <a
             href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
           >
             Login to Spotify
           </a>
-        ) : (
-          ""
-        )}
-      </header>
+        </header>
+      ) : null}
       <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
         <div className="Map">
           <Map />

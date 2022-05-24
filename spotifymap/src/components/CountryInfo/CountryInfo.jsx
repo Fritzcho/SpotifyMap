@@ -38,10 +38,12 @@ export default function CountryInfo(props) {
       );
       console.log(response);
       setTracks(response.data.tracks.items);
-      setLoading(false);
     } catch (err) {
       console.log(err);
+      setTracks([]);
     }
+
+    setLoading(false);
 
     {
       /*item.name === "Topp 50 – Sverige"*/
@@ -59,9 +61,17 @@ export default function CountryInfo(props) {
 
   return (
     <div className="infoContainer">
-      <h2>{props.name}</h2>
+      <div className="header">
+        <h2>{props.name}</h2>
+      </div>
       {loading ? (
-        <PulseLoader color={"green"} loading={loading} size={20} />
+        <div className="loadingBackground">
+          <PulseLoader color={"green"} loading={loading} size={20} />
+        </div>
+      ) : tracks.length === 0 ? (
+        <div className="loadingBackground">
+          <h3>Spotify isn't available in {props.name}</h3>
+        </div>
       ) : (
         <div className="songContainer">
           {tracks.map((track) => {
@@ -75,7 +85,6 @@ export default function CountryInfo(props) {
           })}
         </div>
       )}
-      <button onClick={getPlaylistId}>Test get</button>
     </div>
   );
 }
