@@ -5,13 +5,12 @@ export const RESPONSE_TYPE = 'token';
 
 export const GET_TRACK = async (token, trackEndpoint) =>{
     //HÅRDKODAD MED EXEMPELDATA. CORS BRÅKAR NÄR JAG SKICKAR EN STRÄNG MED PARAMTERAR
-    console.log(trackEndpoint)
-    const res = await fetch(JSON.stringify(trackEndpoint),{
+    console.log('EP: ' + trackEndpoint)
+    console.log(`Bearer: ${token}`)
+    const res = await fetch(trackEndpoint,{
         method: 'GET',
-        headers: {'Authorization': 'Bearer ' + token,'Content-Type': 'json', 'Accept': 'json'}
+        headers: {'Authorization': `Bearer ${token}`,'Content-Type': 'json', 'Accept': 'json'}
     });
     console.log(res)
-    const data = await res.json();
-    console.log("DATA: " + data)
-    return data;
+    return res;
 }

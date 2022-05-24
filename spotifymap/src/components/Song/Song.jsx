@@ -2,17 +2,24 @@ import React, {useState, useEffect} from "react";
 import { GET_TRACK } from "../../utils/spotifyclient";
 import "./Song.css";
 
-function Song(token, trackEndpoint){
+function Song(props){
     const [song, setSong] = useState(null);
 
     useEffect(()=>{
         //debugging
-        console.log("TRACK ENDPOINT " + trackEndpoint)
-        console.log("IN USE EFFECT")
+        console.log("TRACK ENDPOINT " + props.trackEndpoint)
+        console.log("TOKEN FROM SONG COMPONENT: " + props.token)
         const fetchData = async () =>{
-          const res = await GET_TRACK(token, trackEndpoint);
-          console.log("DATA: " + res)
-          setSong(res);
+          const res = await GET_TRACK(props.token, props.trackEndpoint);
+          console.log("RESPONSE: " + res)
+          if(res.status !== 200){
+            setSong(null)
+          }
+          else{
+            const data = await res.json()
+            console.log('DATA: ' + data)
+            setSong(data);
+          }
         };
         fetchData().then(
         ).catch(e =>{
