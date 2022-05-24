@@ -72,7 +72,7 @@ function App() {
             <CountryInfo
               name={selectedCountry.properties.name_en}
               coords={selectedCountry.geometry.coordinates[0][0][0]}
-              code={selectedCountry.properties.iso_3166_1_alpha_3}
+              code={selectedCountry.properties.iso_3166_1}
             />
           )}
         </div>
