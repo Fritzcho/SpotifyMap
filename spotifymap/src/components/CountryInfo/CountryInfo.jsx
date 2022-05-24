@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./CountryInfo.css";
 import axios from 'axios'
 import PulseLoader from "react-spinners/PulseLoader";
+
 export default function CountryInfo(props) {
   const { loading, setLoading } = useState(true);
   const getPlaylistId = async (e) => {
