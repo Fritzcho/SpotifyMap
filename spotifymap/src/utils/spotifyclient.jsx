@@ -11,3 +11,13 @@ export const GET_TRACK = async (token, trackEndpoint) =>{
     console.log(res)
     return res;
 }
+
+const scopes = [
+    "user-read-recently-played",
+    "user-read-playback-state",
+    "user-read-currently-playing",
+    "user-top-read",
+    "user-modify-playback-state",
+]
+
+export const loginUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${scopes.join("%20")}&response_type=${RESPONSE_TYPE}&show_dialog=true`
