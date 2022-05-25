@@ -5,15 +5,36 @@ import PulseLoader from "react-spinners/PulseLoader";
 import Song from "../Song/Song";
 import MapContext from "../Map/MapContext";
 import { useSpring, animated } from "react-spring";
+import getTopTracks from "../../utils/last.fm/lastFm.jsx";
+import queryTrack from "../../utils/spotify/spotify.jsx";
 
 export default function CountryInfo(props) {
   const { selectedCountry } = useContext(MapContext);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = window.localStorage.getItem("token");
-  const getPlaylistId = async () => {
-    console.log(token);
 
+  const getLastFmCharts = async () => {
+    const { lastFmTracks } = await getTopTracks(props.name);
+
+    const res = lastFmTracks.track.map((track) => {
+      console.log(track);
+      return {
+        name: track.name,
+        artist: track.artist.name,
+        images: track.image,
+      };
+    });
+
+    console.log("lastfm:", res);
+    const list = [];
+    for (track in lastFmTracks) {
+    }
+  };
+
+  const getPlaylistId = async () => {
+    await getLastFmCharts();
+    console.log(token);
     try {
       const { data } = await axios.get(
         "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country=" +
@@ -38,8 +59,8 @@ export default function CountryInfo(props) {
           },
         }
       );
-      console.log(response.data.name);
       setTracks(response.data.tracks.items);
+      console.log(response.data.tracks.items);
     } catch (err) {
       console.log(err);
       setTracks([]);
@@ -57,9 +78,7 @@ export default function CountryInfo(props) {
     getPlaylistId();
   }, [selectedCountry]);
 
-  useEffect(() => {
-    console.log(tracks);
-  }, [tracks]);
+  useEffect(() => {}, [tracks]);
 
   const spring = useSpring({
     transform: loading ? "translateY(-300%)" : "translateY(0%)",
@@ -93,7 +112,7 @@ export default function CountryInfo(props) {
             return (
               <Song
                 token={token}
-                trackEndpoint={track.track.href}
+                trackEndpoint={track.track?.href}
                 song={track.track}
               />
             );
