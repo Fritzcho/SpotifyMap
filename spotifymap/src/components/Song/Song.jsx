@@ -5,6 +5,8 @@ import "./Song.css";
 function Song(props) {
   const [song, setSong] = useState(props.song ?? null);
   const [loading, setLoading] = useState(song == null);
+  const token = window.localStorage.getItem("token");
+
 
   useEffect(() => {
     if (song != null) return;
@@ -24,6 +26,20 @@ function Song(props) {
       });
   }, []);
 
+  const playSong = async () => {
+    console.log(song.href)
+    await fetch('	https://api.spotify.com/v1/me/player/play', {
+            method: 'PUT',
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              "uris": ["spotify:track:"+song.id]
+            })
+          });
+  }
+
   useEffect(() => {}, [loading]);
 
   if (song === null && !loading) {
@@ -33,13 +49,16 @@ function Song(props) {
       <div className="loadingBackground" />
     ) : (
       <div className="Song">
-        <div className="coverArt">
-          <img src={song.album.images[0].url} alt="" />
+        <div className="smap__song-meta">
+          <div className="coverArt">
+            <img src={song.album.images[0].url} alt="" />
+          </div>
+          <div className="songDescription">
+            <h3>{song.name}</h3>
+            <p>{song.album.artists[0].name}</p>
+          </div>
         </div>
-        <div className="songDescription">
-          <h3>{song.name}</h3>
-          <p>{song.album.artists[0].name}</p>
-        </div>
+        <img onClick={playSong} src={require('../../assets/icons/play.png')} className="smap__song-playButton"/>
       </div>
     );
   }

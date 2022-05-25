@@ -37,7 +37,7 @@ export default function CountryInfo(props) {
     console.log(token);
     try {
       const { data } = await axios.get(
-        "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country=" +
+        "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=30&offset=0&country=" +
           props.code,
         {
           headers: {
@@ -46,10 +46,13 @@ export default function CountryInfo(props) {
           },
         }
       );
-      console.log(data.playlists);
-      const id = data.playlists.items.find((item) =>
-        item.name.includes("Topp 50")
-      ).id;
+      
+      var filteredArray = data.playlists.items
+      filteredArray = filteredArray.filter(e => e.name !== "Topp 50 – Världen");
+      const id = filteredArray.find((item) =>
+        item.name.includes("Topp 50 – ")
+      ).id 
+      console.log(id)
       const response = await axios.get(
         "https://api.spotify.com/v1/playlists/" + id,
         {
@@ -67,10 +70,6 @@ export default function CountryInfo(props) {
     }
 
     setLoading(false);
-
-    {
-      /*item.name === "Topp 50 – Sverige"*/
-    }
   };
 
   useEffect(() => {
