@@ -154,8 +154,6 @@ function Map() {
           focusedCountry = e.features[0].id;
           setSelectedCountry(e.features[0]);
         }
-        console.log(e.coord);
-        //map.current.fitBounds(e.features.getBounds());
 
         hoveredCountry = null;
       });

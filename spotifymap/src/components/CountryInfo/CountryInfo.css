@@ -6,9 +6,26 @@
     height: 60%;
     border-radius: 10px;
     width: 20%;
+    min-width: 400px;
     background-color: rgba(25, 25, 20, 0.85);
     -webkit-backdrop-filter: blur(1em);
     backdrop-filter: blur(1em);
     color: white;
     z-index: 10;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .songContainer{
+    height: 80%;
+    width: 100%;
+    background-color: white;
+    overflow: scroll;
+    flex-direction: row;
+  }
+
+  .songContainer::-webkit-scrollbar {
+    display: none;
   }
