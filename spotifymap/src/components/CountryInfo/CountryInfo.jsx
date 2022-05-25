@@ -25,6 +25,7 @@ export default function CountryInfo(props) {
           },
         }
       );
+      console.log(data.playlists);
       const id = data.playlists.items.find((item) =>
         item.name.includes("Topp 50")
       ).id;
@@ -37,7 +38,7 @@ export default function CountryInfo(props) {
           },
         }
       );
-      console.log(response);
+      console.log(response.data.name);
       setTracks(response.data.tracks.items);
     } catch (err) {
       console.log(err);
