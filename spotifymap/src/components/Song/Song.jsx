@@ -8,17 +8,12 @@ function Song(props) {
 
   useEffect(() => {
     if (song != null) return;
-    //debugging
-    console.log("TRACK ENDPOINT " + props.trackEndpoint);
-    console.log("TOKEN FROM SONG COMPONENT: " + props.token);
     const fetchData = async () => {
       const res = await GET_TRACK(props.token, props.trackEndpoint);
-      console.log("RESPONSE: " + res);
       if (res.status !== 200) {
         setSong(null);
       } else {
         const data = await res.json();
-        console.log("DATA: " + data);
         setSong(data);
       }
     };

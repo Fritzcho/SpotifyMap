@@ -40,6 +40,14 @@
   display: none;
 }
 
+::-webkit-scrollbar{
+  background-color: #191414;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color:#1DB954;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

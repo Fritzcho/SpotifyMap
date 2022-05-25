@@ -4,3 +4,21 @@
   align-items: center;
   flex-direction: column;
 }
+
+.loginButton{
+  border:none;
+  padding: 15px;
+  padding-left: 3em;
+  padding-right: 3em;
+  border-radius: 100px;
+  font-weight: bold;
+  background-color: #1ed760;
+  color: black;
+  cursor: pointer;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
+}
+
+.loginButton:hover{
+  box-shadow: none;
+  background-color: #1FDF64;
+}
