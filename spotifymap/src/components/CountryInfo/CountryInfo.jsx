@@ -4,6 +4,7 @@ import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
 import Song from "../Song/Song";
 import MapContext from "../Map/MapContext";
+import { useSpring, animated } from "react-spring";
 
 export default function CountryInfo(props) {
   const { selectedCountry } = useContext(MapContext);
@@ -59,21 +60,34 @@ export default function CountryInfo(props) {
     console.log(tracks);
   }, [tracks]);
 
+  const spring = useSpring({
+    transform: loading ? "translateY(-300%)" : "translateY(0%)",
+    opacity: loading ? 0 : 1,
+  });
+
+  const spring2 = useSpring({
+    //backdropFilter: loading || tracks.length == 0 ? "blur(0px)" : "blur(1em)",
+  });
+
+  const spring3 = useSpring({
+    height: loading || tracks.length == 0 ? 200 : 700,
+  });
+
   return (
-    <div className="infoContainer">
-      <div className="header">
+    <animated.div className="infoContainer" style={spring3}>
+      <animated.div className="header">
         <h2>{props.name}</h2>
-      </div>
+      </animated.div>
       {loading ? (
         <div className="loadingBackground">
-          <PulseLoader color={"green"} loading={loading} size={20} />
+          <PulseLoader color={"#ffffff99"} loading={loading} size={20} />
         </div>
       ) : tracks.length === 0 ? (
         <div className="loadingBackground">
           <h3>Spotify isn't available in {props.name}</h3>
         </div>
       ) : (
-        <div className="songContainer">
+        <animated.div className="songContainer" style={spring}>
           {tracks.map((track) => {
             return (
               <Song
@@ -83,8 +97,8 @@ export default function CountryInfo(props) {
               />
             );
           })}
-        </div>
+        </animated.div>
       )}
-    </div>
+    </animated.div>
   );
 }
