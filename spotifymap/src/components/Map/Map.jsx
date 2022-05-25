@@ -50,6 +50,7 @@ function Map() {
           url: "mapbox://mapbox.country-boundaries-v1",
         },
         "source-layer": "country_boundaries",
+        maxzoom: 10,
         type: "fill",
         paint: {
           "fill-color": "gray",
@@ -62,6 +63,7 @@ function Map() {
         source: "country-boundaries",
         "source-layer": "country_boundaries",
         type: "fill",
+        maxzoom: 10,
         paint: {
           "fill-color": "#1DB954",
           "fill-opacity": [
