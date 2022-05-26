@@ -90,6 +90,9 @@ export default function CountryInfo(props) {
     <animated.div className="infoContainer" style={spring3}>
       <animated.div className="header">
         <h2>{props.name}</h2>
+        <div className="countryFlag">
+          <img src={`https://countryflagsapi.com/png/${props.code}`} />
+        </div>
       </animated.div>
       {loading ? (
         <div className="loadingBackground">
@@ -125,7 +128,9 @@ export default function CountryInfo(props) {
           <animated.div className="songContainer" style={spring2}>
             {showDetails != null ? (
               <div>
-                <button onClick={() => setShowDetails(null)}>BACK TO LIST</button>
+                <button onClick={() => setShowDetails(null)}>
+                  BACK TO LIST
+                </button>
                 <SongDetails
                   token={token}
                   trackEndpoint={showDetails.track.href}
