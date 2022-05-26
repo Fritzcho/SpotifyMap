@@ -17,10 +17,10 @@ export default function CountryInfo(props) {
     console.log(token);
 
     try {
+      console.log("COUNTRY CODE: " + props.code)
       const { data } = await axios.get(
+
         `https://api.spotify.com/v1/search?q=Topp 50 - ${props.name}&type=playlist&include_external=audio`,
-        
-          props.code,
         {
           headers: {
             Accept: "application/json",
@@ -30,7 +30,6 @@ export default function CountryInfo(props) {
       );
       
       var filteredArray = data.playlists.items
-      filteredArray = filteredArray.filter(e => e.name !== "Topp 50 – Världen");
       const id = filteredArray.find((item) =>
         item.name.includes("Topp 50 – ")
       ).id 
