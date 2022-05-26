@@ -42,7 +42,7 @@ function App() {
   if (window.localStorage.getItem("token")) {
     return (
       <div className="App">
-        {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/3RCbGcSsPFNn6NbFbLc8QT"></SongDetails>*/ /*FÖR TESTING PURPOSES*/}
+        {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2HyYRvNNtNIxDZP2KJjhYI"></SongDetails> FÖR TESTING PURPOSES*/}
         {/* {!token ? (
         <header className="App-header">
           <a
