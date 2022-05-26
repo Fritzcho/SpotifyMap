@@ -21,7 +21,7 @@ h3{
     flex-direction: column;
     max-width: 50vw;
     background-color: transparent;
-    padding-top: 200px;
+    padding-top: 1em;
     padding-bottom: 100px;
     color:white;
 }

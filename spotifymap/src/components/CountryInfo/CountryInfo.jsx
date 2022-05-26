@@ -5,11 +5,13 @@ import PulseLoader from "react-spinners/PulseLoader";
 import Song from "../Song/Song";
 import MapContext from "../Map/MapContext";
 import { useSpring, animated } from "react-spring";
+import SongDetails from "../Song/SongDetails";
 
 export default function CountryInfo(props) {
   const { selectedCountry } = useContext(MapContext);
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDetails, setShowDetails] = useState(null);
   const token = window.localStorage.getItem("token");
   const getPlaylistId = async () => {
     console.log(token);
@@ -53,12 +55,18 @@ export default function CountryInfo(props) {
 
   useEffect(() => {
     setLoading(true);
+    setShowDetails(null);
     getPlaylistId();
   }, [selectedCountry]);
 
   useEffect(() => {
     console.log(tracks);
   }, [tracks]);
+
+  const ShowDetails = (song) =>{
+    console.log("SET SONG: " + song.name)
+    setShowDetails(song);
+  }
 
   const spring = useSpring({
     transform: loading ? "translateY(-300%)" : "translateY(0%)",
@@ -86,15 +94,26 @@ export default function CountryInfo(props) {
         <div className="loadingBackground">
           <h3>Spotify isn't available in {props.name}</h3>
         </div>
+      ) : showDetails !== null ? (
+        <div className="songContainer">
+          <button onClick={() => setShowDetails(null)}>TILLBAKA</button>
+          <SongDetails
+            token={token}
+            trackEndpoint={showDetails.track.href}
+            song={showDetails}
+          />
+        </div>
       ) : (
         <animated.div className="songContainer" style={spring}>
           {tracks.map((track) => {
             return (
-              <Song
-                token={token}
-                trackEndpoint={track.track.href}
-                song={track.track}
-              />
+              <div onClick={() => ShowDetails(track.track)}>
+                <Song
+                  token={token}
+                  trackEndpoint={track.track.href}
+                  song={track.track}
+                />
+              </div>
             );
           })}
         </animated.div>
