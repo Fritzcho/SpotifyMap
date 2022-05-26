@@ -79,6 +79,11 @@ h3{
     flex-direction: column;
 }
 
+.coverArtFiller{
+    display:block;
+    min-width: 100px;
+}
+
 .songDescription {
     font-size: 0.7rem;
     padding-left: 10%;

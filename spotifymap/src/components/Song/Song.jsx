@@ -76,14 +76,16 @@ function Song(props) {
         onMouseLeave={() => setHover(false)}
       >
         <div className="smap__song-meta">
-          <div className="coverArt">
-            <animated.img
-              class="smallImage"
-              style={springImg}
-              src={song.album.images[0].url}
-              alt=""
-            />
+          {song.album.images[0] ? 
+            <div className="coverArt">
+              <animated.img
+                class="smallImage"
+                style={springImg}
+                src={song.album.images[0].url}
+                alt=""
+              />
           </div>
+          : <div className="coverArtFiller"></div>} 
           <div className="songDescription">
             <h3>
               <label>{song.name}</label>
