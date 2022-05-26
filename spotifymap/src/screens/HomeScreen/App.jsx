@@ -4,6 +4,7 @@ import { useJwt } from "react-jwt";
 
 import Map from "../../components/Map/Map.jsx";
 import Song from "../../components/Song/Song.jsx";
+import SongDetails from "../../components/Song/SongDetails"
 import MapContext from "../../components/Map/MapContext";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
 import Loginpage from "../../components/Loginpage/Loginpage";
@@ -41,6 +42,7 @@ function App() {
   if (window.localStorage.getItem("token")) {
     return (
       <div className="App">
+        {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/3RCbGcSsPFNn6NbFbLc8QT"></SongDetails>*/ /*FÖR TESTING PURPOSES*/}
         {/* {!token ? (
         <header className="App-header">
           <a

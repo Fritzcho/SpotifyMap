@@ -51,7 +51,7 @@ function Song(props) {
       <div className="Song">
         <div className="smap__song-meta">
           <div className="coverArt">
-            <img src={song.album.images[0].url} alt="" />
+            <img class="smallImage" src={song.album.images[0].url} alt="" />
           </div>
           <div className="songDescription">
             <h3>{song.name}</h3>

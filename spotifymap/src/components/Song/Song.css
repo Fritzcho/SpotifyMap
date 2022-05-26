@@ -1,9 +1,10 @@
-img{
-    max-width: 100px;
-}
 
 h3{
     font-size: 1.3em;
+}
+
+.smallImage{
+    max-width: 100px;
 }
 
 .Song{
@@ -13,6 +14,55 @@ h3{
     color: white;
     justify-content: space-between;
     align-items: center;
+}
+
+.SongDetails{
+    display: flex;
+    flex-direction: column;
+    max-width: 50vw;
+    background-color: #1F1F1F;
+    padding-top: 200px;
+    padding-bottom: 100px;
+    color:white;
+}
+
+.SongDetails p{
+    text-align: left;
+}
+
+.SongDetails .albumInfo{
+    display: block;
+    margin:auto;
+}
+
+.SongDetails .coverImage{
+    display: block;
+    margin:auto;
+    max-width: 50%;
+}
+
+.SongDetails .coverImage img{
+    max-width: 100%;
+}
+
+.popularity{
+    display: block;
+    margin:auto;
+    min-width: 50%;
+    min-height: 20px;
+    border-radius: 100px;
+    background-color: #808080;
+}
+
+.popularityMeter{
+    background-color: #1DB954;
+    min-height: 20px;
+    border-radius: 100px;
+}
+
+.playButton_details{
+    margin:none;
+    padding:none;
 }
 
 .smap__song-meta {
@@ -54,4 +104,12 @@ h3{
     height: 35px;
     width: auto;
     padding-right: 3%;
+    cursor: pointer;
+}
+
+.smap__song-playButtonDetails {
+    height: 50px;
+    width: 45px;
+    margin:auto;
+    cursor: pointer;
 }
