@@ -125,7 +125,7 @@ export default function CountryInfo(props) {
           <animated.div className="songContainer" style={spring2}>
             {showDetails != null ? (
               <div>
-                <button onClick={() => setShowDetails(null)}>TILLBAKA</button>
+                <button onClick={() => setShowDetails(null)}>BACK TO LIST</button>
                 <SongDetails
                   token={token}
                   trackEndpoint={showDetails.track.href}
