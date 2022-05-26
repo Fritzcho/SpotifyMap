@@ -1,11 +1,6 @@
 import React, { useEffect, useState, uselocalstate } from "react";
 import "./loginpage.css";
 import {
-  CLIENT_ID,
-  CLIENT_SECRET,
-  REDIRECT_URI,
-  RESPONSE_TYPE,
-  AUTH_ENDPOINT,
   loginUrl
 } from "../../utils/spotifyclient";
 

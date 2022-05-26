@@ -36,7 +36,11 @@ function Song(props) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        uris: ["spotify:track:" + song.id],
+        context_uri: "spotify:playlist:"+props.playlistId,
+        offset: {
+          position: props.index
+        },
+        position_ms: 0
       }),
     });
   };
