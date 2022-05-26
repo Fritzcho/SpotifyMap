@@ -4,6 +4,7 @@ import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
 import Song from "../Song/Song";
 import MapContext from "../Map/MapContext";
+import { useSpring, animated } from "react-spring";
 
 export default function CountryInfo(props) {
   const { selectedCountry } = useContext(MapContext);
@@ -15,7 +16,7 @@ export default function CountryInfo(props) {
 
     try {
       const { data } = await axios.get(
-        "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=20&offset=0&country=" +
+        "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=30&offset=0&country=" +
           props.code,
         {
           headers: {
@@ -24,9 +25,13 @@ export default function CountryInfo(props) {
           },
         }
       );
-      const id = data.playlists.items.find((item) =>
-        item.name.includes("Topp 50")
-      ).id;
+      
+      var filteredArray = data.playlists.items
+      filteredArray = filteredArray.filter(e => e.name !== "Topp 50 – Världen");
+      const id = filteredArray.find((item) =>
+        item.name.includes("Topp 50 – ")
+      ).id 
+      console.log(id)
       const response = await axios.get(
         "https://api.spotify.com/v1/playlists/" + id,
         {
@@ -36,16 +41,14 @@ export default function CountryInfo(props) {
           },
         }
       );
-      console.log(response);
+      console.log(response.data.name);
       setTracks(response.data.tracks.items);
-      setLoading(false);
     } catch (err) {
       console.log(err);
+      setTracks([]);
     }
 
-    {
-      /*item.name === "Topp 50 – Sverige"*/
-    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -57,13 +60,34 @@ export default function CountryInfo(props) {
     console.log(tracks);
   }, [tracks]);
 
+  const spring = useSpring({
+    transform: loading ? "translateY(-300%)" : "translateY(0%)",
+    opacity: loading ? 0 : 1,
+  });
+
+  const spring2 = useSpring({
+    //backdropFilter: loading || tracks.length == 0 ? "blur(0px)" : "blur(1em)",
+  });
+
+  const spring3 = useSpring({
+    height: loading || tracks.length == 0 ? 200 : 700,
+  });
+
   return (
-    <div className="infoContainer">
-      <h2>{props.name}</h2>
+    <animated.div className="infoContainer" style={spring3}>
+      <animated.div className="header">
+        <h2>{props.name}</h2>
+      </animated.div>
       {loading ? (
-        <PulseLoader color={"green"} loading={loading} size={20} />
+        <div className="loadingBackground">
+          <PulseLoader color={"#ffffff99"} loading={loading} size={20} />
+        </div>
+      ) : tracks.length === 0 ? (
+        <div className="loadingBackground">
+          <h3>Spotify isn't available in {props.name}</h3>
+        </div>
       ) : (
-        <div className="songContainer">
+        <animated.div className="songContainer" style={spring}>
           {tracks.map((track) => {
             return (
               <Song
@@ -73,9 +97,8 @@ export default function CountryInfo(props) {
               />
             );
           })}
-        </div>
+        </animated.div>
       )}
-      <button onClick={getPlaylistId}>Test get</button>
-    </div>
+    </animated.div>
   );
 }

@@ -6,6 +6,7 @@ import {
   REDIRECT_URI,
   RESPONSE_TYPE,
   AUTH_ENDPOINT,
+  loginUrl
 } from "../../utils/spotifyclient";
 
 import { Navigate } from "react-router-dom";
@@ -37,13 +38,13 @@ const Loginpage = () => {
       <div className="lp-content">
         <h3 className="lp-login">Login</h3>
         <p className="lp-text">
-          You are curently not logged in to spotify please use the butten below
+          This app requires a connection to your Spotify account, please use the butten below
           to login
         </p>
         <a
-          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+          href={loginUrl}
         >
-          Login to Spotify
+          <button className="loginButton">CONNECT WITH SPOTIFY</button>
         </a>
       </div>
     </div>

@@ -7,25 +7,100 @@
     border-radius: 10px;
     width: 20%;
     min-width: 400px;
-    background-color: rgba(25, 25, 20, 0.85);
-    -webkit-backdrop-filter: blur(1em);
-    backdrop-filter: blur(1em);
+    background: linear-gradient(90deg, #282C70ff, #282C70dd, #282C70aa, #282C7088, #282C7055, #19192422);
     color: white;
     z-index: 10;
     flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    box-shadow: 10px 10px 20px rgba(25, 25, 20, 0.85);
+  }
+
+  .header{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(-60deg, rgb(0, 0, 87), transparent);
+    backdrop-filter: blur(1em);
+    z-index: 10;
+    color: white;
   }
 
   .songContainer{
-    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end; 
+    position: relative;
+    height: 100%;
     width: 100%;
     background-color: white;
-    overflow: scroll;
-    flex-direction: row;
+    overflow-y: scroll;
+    padding-top: 60px;
+    margin-bottom: -70px;
+    background-color: transparent;
+    -webkit-backdrop-filter: blur(1em);
+    backdrop-filter: blur(1em); 
+    margin-top: 7px;
+  
   }
 
+
   .songContainer::-webkit-scrollbar {
-    display: none;
+    border-radius: 30px;
+    width: 10px;
   }
+
+  .songContainer::-webkit-scrollbar-button:start {
+    background: transparent;
+    height: 60px;
+  } 
+
+  .songContainer::-webkit-scrollbar-button:end {
+    background: transparent;
+    height: 70px;
+  } 
+
+  .songContainer::-webkit-scrollbar-thumb {
+    background: #1DB954;
+    border-radius: 30px;
+    width: 3px;
+    height: 15px;
+  }
+
+  .songContainer::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .loadingBackground{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg, #282C70ff, #282Cffee, #2855ffff);
+    background-size: 1000% 1000%;
+    animation: gradient 4s ease infinite;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+  }
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 100%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 100%;
+	}
+}
+
+
