@@ -6,6 +6,7 @@ import { Navbar, Loginpage } from "./components";
 import { HomeScreen } from "./screens";
 
 const rootElement = document.getElementById("root");
+
 render(
   <BrowserRouter>
     <Navbar />

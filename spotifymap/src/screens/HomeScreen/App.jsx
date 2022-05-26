@@ -13,6 +13,7 @@ import Map from "../../components/Map/Map.jsx";
 import Song from "../../components/Song/Song.jsx";
 import MapContext from "../../components/Map/MapContext";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
+import { Loginpage } from "../../components";
 
 function App() {
   const [token, setToken] = useState("");
@@ -43,34 +44,26 @@ function App() {
     setToken(token);
   }, []);
   console.log("TOKEN FROM APP: " + token);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        {!token ? (
-          <a
-            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
-          >
-            Login to Spotify
-          </a>
-        ) : (
-          ""
-        )}
-      </header>
-      <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
-        <div className="Map">
-          <Map />
-          {selectedCountry == null ? null : (
-            <CountryInfo
-              name={selectedCountry.properties.name_en}
-              coords={selectedCountry.geometry.coordinates[0][0][0]}
-              code={selectedCountry.properties.iso_3166_1}
-            />
-          )}
-        </div>
-      </MapContext.Provider>
-    </div>
-  );
+  if (window.localStorage.getItem("token")) {
+    return (
+      <div className="App">
+        <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
+          <div className="Map">
+            <Map />
+            {selectedCountry == null ? null : (
+              <CountryInfo
+                name={selectedCountry.properties.name_en}
+                coords={selectedCountry.geometry.coordinates[0][0][0]}
+                code={selectedCountry.properties.iso_3166_1}
+              />
+            )}
+          </div>
+        </MapContext.Provider>
+      </div>
+    );
+  } else {
+    return <Loginpage />;
+  }
 }
 
 function Info(props) {
