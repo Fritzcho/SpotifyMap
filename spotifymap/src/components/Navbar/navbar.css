@@ -1,10 +1,33 @@
+a{
+  text-decoration: none;
+  color: white;
+}
+
+button{
+  border:none;
+  border-radius: 100px;
+  padding: 5px;
+  padding-left: 1em;
+  padding-right: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: white;
+  color: #191414;
+}
+
+button:hover{
+  background-color: #1db954;
+}
+
 .smap__navbar {
   background: #191414;
   display: flex;
   justify-content: space-between;
+  color: white;
   position: absolute;
   width: 100vw;
   z-index: 10;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .smap__navbar--icon {
@@ -34,4 +57,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 1%;
+}
+
+.logoHolder{
+  display: flex;
+  align-items: center;
+  max-width: 10%;
+  color: white;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-left: 1%;
+}
+
+sup{
+  font-size: 10px;
 }

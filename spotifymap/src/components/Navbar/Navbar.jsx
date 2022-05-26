@@ -5,15 +5,22 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [token, setToken] = useState("");
+  const [loggedIn, setLoggedIn] = useState(true);
+
+  useEffect(()=>{
+    setLoggedIn(window.localStorage.getItem("token") ? true : false)
+  }, [])
 
   const logout = () => {
-    setToken("");
+    setToken(null);
     window.localStorage.removeItem("token");
   };
 
   return (
     <div className="smap__navbar">
-      <div className="smap__navbar--icon">Filler</div>
+      <div className="logoHolder">
+        <a href="/"><p><b>SPOTIFY<sup>®</sup> MAP</b></p></a>
+      </div>
       <div className="smap__navbar--links">
         <p>
           <Link to="/">Home</Link>
@@ -25,11 +32,14 @@ const Navbar = () => {
           <Link to="/contact">Contact</Link>
         </p>
       </div>
-      <div className="smap-navbar--logout">
-        <Link to="/login" onClick={logout}>
-          Log out
-        </Link>
-      </div>
+        {(window.localStorage.getItem("token")) ? (
+          <div className="smap-navbar--logout">
+            <Link to="/login">
+              <button onClick={logout}>Log out</button>
+            </Link>
+          </div>)
+        : (<div className="smap-navbar--logout">Not logged in</div>)
+        }
     </div>
   );
 };
