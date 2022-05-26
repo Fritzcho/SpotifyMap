@@ -18,9 +18,10 @@ export default function CountryInfo(props) {
 
     try {
       console.log("COUNTRY CODE: " + props.code)
+      const name = props.code === "CZ" ? "tjeckien" : props.name;
       const { data } = await axios.get(
 
-        `https://api.spotify.com/v1/search?q=Topp 50 - ${props.name}&type=playlist&include_external=audio`,
+        `https://api.spotify.com/v1/search?q=Topp 50 - ${name}&type=playlist&include_external=audio`,
         {
           headers: {
             Accept: "application/json",
