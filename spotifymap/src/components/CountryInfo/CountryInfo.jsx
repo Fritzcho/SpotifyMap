@@ -18,7 +18,8 @@ export default function CountryInfo(props) {
 
     try {
       const { data } = await axios.get(
-        "https://api.spotify.com/v1/browse/categories/toplists/playlists?limit=30&offset=0&country=" +
+        `https://api.spotify.com/v1/search?q=Topp 50 - ${props.name}&type=playlist&include_external=audio`,
+        
           props.code,
         {
           headers: {
@@ -33,7 +34,7 @@ export default function CountryInfo(props) {
       const id = filteredArray.find((item) =>
         item.name.includes("Topp 50 – ")
       ).id 
-      console.log(id)
+      console.log("ID: " + id)
       const response = await axios.get(
         "https://api.spotify.com/v1/playlists/" + id,
         {
