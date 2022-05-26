@@ -18,9 +18,9 @@ export default function CountryInfo(props) {
 
     try {
       console.log("COUNTRY CODE: " + props.code);
-      const name = props.code === "CZ" ? "tjeckien" : props.name;
+      const name = props.code === "CZ" ? "Topp 50 - tjeckien" : props.code === "CN" ? "Super Idol" : "Topp 50 - "+ props.name;
       const { data } = await axios.get(
-        `https://api.spotify.com/v1/search?q=Topp 50 - ${name}&type=playlist&include_external=audio`,
+        `https://api.spotify.com/v1/search?q=${name}&type=playlist&include_external=audio`,
         {
           headers: {
             Accept: "application/json",
@@ -31,7 +31,7 @@ export default function CountryInfo(props) {
 
       var filteredArray = data.playlists.items;
       const id = filteredArray.find((item) =>
-        item.name.includes("Topp 50 – ")
+        item.name.includes("Topp 50 – ") || item.name.includes("Super Idol")
       ).id;
       console.log("ID: " + id);
       const response = await axios.get(
