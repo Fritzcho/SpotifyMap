@@ -27,13 +27,15 @@ export default function CountryInfo(props) {
           },
         }
       );
-      
-      var filteredArray = data.playlists.items
-      filteredArray = filteredArray.filter(e => e.name !== "Topp 50 – Världen");
+
+      var filteredArray = data.playlists.items;
+      filteredArray = filteredArray.filter(
+        (e) => e.name !== "Topp 50 – Världen"
+      );
       const id = filteredArray.find((item) =>
         item.name.includes("Topp 50 – ")
-      ).id 
-      console.log(id)
+      ).id;
+      console.log(id);
       const response = await axios.get(
         "https://api.spotify.com/v1/playlists/" + id,
         {
@@ -63,18 +65,23 @@ export default function CountryInfo(props) {
     console.log(tracks);
   }, [tracks]);
 
-  const ShowDetails = (song) =>{
-    console.log("SET SONG: " + song.name)
+  const ShowDetails = (song) => {
+    console.log("SET SONG: " + song.name);
     setShowDetails(song);
-  }
+  };
 
   const spring = useSpring({
-    transform: loading ? "translateY(-300%)" : "translateY(0%)",
-    opacity: loading ? 0 : 1,
+    transform:
+      loading || showDetails != null ? "translateY(-30%)" : "translateY(0%)",
+    opacity: loading || showDetails != null ? 0 : 1,
+    position: showDetails ? "relative" : "absolute",
   });
 
   const spring2 = useSpring({
-    //backdropFilter: loading || tracks.length == 0 ? "blur(0px)" : "blur(1em)",
+    background: "none",
+    position: showDetails ? "absolute" : "relative",
+    opacity: showDetails ? 1 : 0,
+    transform: showDetails != null ? "translateY(0%)" : "translateY(100%)",
   });
 
   const spring3 = useSpring({
@@ -94,29 +101,42 @@ export default function CountryInfo(props) {
         <div className="loadingBackground">
           <h3>Spotify isn't available in {props.name}</h3>
         </div>
-      ) : showDetails !== null ? (
-        <div className="songContainer">
-          <button onClick={() => setShowDetails(null)}>TILLBAKA</button>
-          <SongDetails
-            token={token}
-            trackEndpoint={showDetails.track.href}
-            song={showDetails}
-          />
-        </div>
       ) : (
-        <animated.div className="songContainer" style={spring}>
-          {tracks.map((track) => {
-            return (
-              <div onClick={() => ShowDetails(track.track)}>
-                <Song
+        <div
+          style={{
+            overflow: "visible",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <animated.div className="songContainer" style={spring}>
+            {tracks.map((track) => {
+              return (
+                <div onClick={() => ShowDetails(track.track)}>
+                  <Song
+                    token={token}
+                    trackEndpoint={track.track.href}
+                    song={track.track}
+                  />
+                </div>
+              );
+            })}
+          </animated.div>
+          <animated.div className="songContainer" style={spring2}>
+            {showDetails != null ? (
+              <div>
+                <button onClick={() => setShowDetails(null)}>TILLBAKA</button>
+                <SongDetails
                   token={token}
-                  trackEndpoint={track.track.href}
-                  song={track.track}
+                  trackEndpoint={showDetails.track.href}
+                  song={showDetails}
                 />
               </div>
-            );
-          })}
-        </animated.div>
+            ) : null}
+          </animated.div>
+        </div>
       )}
     </animated.div>
   );
