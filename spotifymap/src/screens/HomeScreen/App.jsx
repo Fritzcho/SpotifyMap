@@ -15,7 +15,7 @@ function App() {
   const { decodedToken, isExpired } = useJwt(
     window.localStorage.getItem("token")
   );
-
+  
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
@@ -39,36 +39,27 @@ function App() {
 
     setToken(token);
   }, []);
-  if (window.localStorage.getItem("token")) {
-    return (
-      <div className="App">
-        {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2HyYRvNNtNIxDZP2KJjhYI"></SongDetails> FÖR TESTING PURPOSES*/}
-        {/* {!token ? (
-        <header className="App-header">
-          <a
-            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${"user-modify-playback-state"}&response_type=${RESPONSE_TYPE}`}
-          >
-            Login to Spotify
-          </a>
-        </header>
-      ) : null} */}
-        <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
-          <div className="Map">
-            <Map />
-            {selectedCountry == null ? null : (
-              <CountryInfo
-                name={selectedCountry.properties.name_en}
-                coords={selectedCountry.geometry.coordinates[0][0][0]}
-                code={selectedCountry.properties.iso_3166_1}
-              />
-            )}
-          </div>
-        </MapContext.Provider>
-      </div>
-    );
-  } else {
-    return <Loginpage />;
-  }
+
+  return (
+    <div className="App">
+      {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2HyYRvNNtNIxDZP2KJjhYI"></SongDetails> FÖR TESTING PURPOSES*/}
+      {!token ? (
+      <Loginpage/>
+    ) : 
+      <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
+        <div className="Map">
+          <Map />
+          {selectedCountry == null ? null : (
+            <CountryInfo
+              name={selectedCountry.properties.name_en}
+              coords={selectedCountry.geometry.coordinates[0][0][0]}
+              code={selectedCountry.properties.iso_3166_1}
+            />
+          )}
+        </div>
+      </MapContext.Provider>}
+    </div>
+  );
 }
 
 function Info(props) {
