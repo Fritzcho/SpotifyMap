@@ -97,6 +97,9 @@ export default function CountryInfo(props) {
     <animated.div className="infoContainer" style={spring3}>
       <animated.div className="header">
         <h2>{props.name}</h2>
+        <div className="countryFlag">
+          <img src={`https://countryflagsapi.com/png/${props.code}`} />
+        </div>
       </animated.div>
       {loading ? (
         <div className="loadingBackground">
