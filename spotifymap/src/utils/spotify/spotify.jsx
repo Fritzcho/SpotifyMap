@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const token = window.localStorage.getItem("token");
+const token = window.sessionStorage.getItem("token");
 export default async function queryTrack(title, artist) {
   try {
     const { data } = await axios.get(
@@ -12,8 +12,7 @@ export default async function queryTrack(title, artist) {
         },
       }
     );
-    console.log(data);
-    return JSON.parse(data);
+    return data;
   } catch (err) {
     console.log(err);
     return null;

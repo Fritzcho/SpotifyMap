@@ -15,7 +15,7 @@ export default function CountryInfo(props) {
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(null);
   const [playlistId, setPlaylistId] = useState("");
-  const token = window.localStorage.getItem("token");
+  const token = window.sessionStorage.getItem("token");
 
   const getLastFmCharts = async () => {
     const lastFmRes = await getTopTracks(props.name);
