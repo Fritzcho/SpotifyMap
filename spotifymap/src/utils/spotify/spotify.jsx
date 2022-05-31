@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const token = window.sessionStorage.getItem("token");
 export default async function queryTrack(title, artist) {
+  const token = window.sessionStorage.getItem("token");
+
   try {
     const { data } = await axios.get(
       `https://api.spotify.com/v1/search?q=track:${title}+artist:${artist}&type=track&limit=1`,

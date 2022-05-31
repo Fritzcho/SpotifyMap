@@ -21,15 +21,15 @@ export default function CountryInfo(props) {
     const lastFmRes = await getTopTracks(props.name);
     console.log(lastFmRes);
 
-    const res = await Promise.all([
+    const res = await Promise.all(
       lastFmRes.tracks.track.map(async (track) => {
         const spotifyTrack = await queryTrack(track.name, track.artist.name);
         if (spotifyTrack != undefined) return spotifyTrack.tracks.items[0];
-      }),
-    ]);
+      })
+    );
 
-    console.log({ res });
-    return { res };
+    console.log(res);
+    return res;
   };
 
   const getPlaylistId = async () => {
@@ -67,12 +67,10 @@ export default function CountryInfo(props) {
           },
         }
       );
-      console.log(response.data.name);
-
-      if (response.data.tracks.items != null) {
-        setTracks(response.data.tracks.items);
-      }
+      console.log(response.data.tracks.items);
+      setTracks(response.data.tracks.items);
     } catch (err) {
+      setLoading(true);
       console.log(err);
       const lastFmTrack = await getLastFmCharts();
 
@@ -145,7 +143,7 @@ export default function CountryInfo(props) {
                 <div onClick={() => ShowDetails(track.track)}>
                   <Song
                     token={token}
-                    trackEndpoint={track.track.href}
+                    trackEndpoint={track.href}
                     song={track.track}
                     index={index}
                     playlistId={playlistId}
