@@ -53,20 +53,21 @@
   }
 
   .countryFlag{
+    position: relative;
     min-height: 30%;
     max-height: 100%;
-    width: 300px;
+    width: 100%;
     position: absolute;
     left: 0;
     overflow: hidden;
     z-index: -1;
-    opacity: 0.1;
-    border-radius: 0px 300px 0px 0px;
+    opacity: 0.3;
   }
 
   .countryFlag img{
-    max-height: 100%;
-    width: auto;
+    position: relative;
+    width: 100%;
+    margin-top: -60px;
   }
   
 
