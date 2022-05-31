@@ -7,7 +7,7 @@ function Song(props) {
   const [song, setSong] = useState(props.song ?? null);
   const [hover, setHover] = useState(false);
   const [loading, setLoading] = useState(song == null);
-  const token = window.localStorage.getItem("token");
+  const token = window.sessionStorage.getItem("token");
 
   useEffect(() => {
     if (song != null) return;
@@ -36,11 +36,11 @@ function Song(props) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        context_uri: "spotify:playlist:"+props.playlistId,
+        context_uri: "spotify:playlist:" + props.playlistId,
         offset: {
-          position: props.index
+          position: props.index,
         },
-        position_ms: 0
+        position_ms: 0,
       }),
     });
   };
@@ -80,7 +80,7 @@ function Song(props) {
         onMouseLeave={() => setHover(false)}
       >
         <div className="smap__song-meta">
-          {song.album.images[0] ? 
+          {song.album.images[0] ? (
             <div className="coverArt">
               <animated.img
                 class="smallImage"
@@ -88,8 +88,10 @@ function Song(props) {
                 src={song.album.images[0].url}
                 alt=""
               />
-          </div>
-          : <div className="coverArtFiller"></div>} 
+            </div>
+          ) : (
+            <div className="coverArtFiller"></div>
+          )}
           <div className="songDescription">
             <h3>
               <label>{song.name}</label>

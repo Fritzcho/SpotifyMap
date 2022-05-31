@@ -13,13 +13,18 @@ export default function CountryInfo(props) {
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(null);
   const [playlistId, setPlaylistId] = useState("");
-  const token = window.localStorage.getItem("token");
+  const token = window.sessionStorage.getItem("token");
   const getPlaylistId = async () => {
     console.log(token);
 
     try {
       console.log("COUNTRY CODE: " + props.code);
-      const name = props.code === "CZ" ? "Topp 50 - tjeckien" : props.code === "CN" ? "Super Idol" : "Topp 50 - "+ props.name;
+      const name =
+        props.code === "CZ"
+          ? "Topp 50 - tjeckien"
+          : props.code === "CN"
+          ? "Super Idol"
+          : "Topp 50 - " + props.name;
       const { data } = await axios.get(
         `https://api.spotify.com/v1/search?q=${name}&type=playlist&include_external=audio`,
         {
@@ -31,8 +36,9 @@ export default function CountryInfo(props) {
       );
 
       var filteredArray = data.playlists.items;
-      const id = filteredArray.find((item) =>
-        item.name.includes("Topp 50 – ") || item.name.includes("Super Idol")
+      const id = filteredArray.find(
+        (item) =>
+          item.name.includes("Topp 50 – ") || item.name.includes("Super Idol")
       ).id;
       setPlaylistId(id);
       const response = await axios.get(

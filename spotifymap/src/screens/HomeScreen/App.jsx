@@ -4,7 +4,7 @@ import { useJwt } from "react-jwt";
 
 import Map from "../../components/Map/Map.jsx";
 import Song from "../../components/Song/Song.jsx";
-import SongDetails from "../../components/Song/SongDetails"
+import SongDetails from "../../components/Song/SongDetails";
 import MapContext from "../../components/Map/MapContext";
 import CountryInfo from "../../components/CountryInfo/CountryInfo";
 import Loginpage from "../../components/Loginpage/Loginpage";
@@ -13,17 +13,17 @@ function App() {
   const [token, setToken] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
   const { decodedToken, isExpired } = useJwt(
-    window.localStorage.getItem("token")
+    window.sessionStorage.getItem("token")
   );
-  
+
   useEffect(() => {
     const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    let token = window.sessionStorage.getItem("token");
 
     console.log(isExpired);
     if (isExpired) {
       setToken("");
-      window.localStorage.removeItem("token");
+      window.sessionStorage.removeItem("token");
     }
 
     if (!token && hash) {
@@ -34,7 +34,7 @@ function App() {
         .split("=")[1];
 
       window.location.hash = "";
-      window.localStorage.setItem("token", token);
+      window.sessionStorage.setItem("token", token);
     }
 
     setToken(token);
@@ -44,20 +44,21 @@ function App() {
     <div className="App">
       {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2HyYRvNNtNIxDZP2KJjhYI"></SongDetails> FÖR TESTING PURPOSES*/}
       {!token ? (
-      <Loginpage/>
-    ) : 
-      <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
-        <div className="Map">
-          <Map />
-          {selectedCountry == null ? null : (
-            <CountryInfo
-              name={selectedCountry.properties.name_en}
-              coords={selectedCountry.geometry.coordinates[0][0][0]}
-              code={selectedCountry.properties.iso_3166_1}
-            />
-          )}
-        </div>
-      </MapContext.Provider>}
+        <Loginpage />
+      ) : (
+        <MapContext.Provider value={{ selectedCountry, setSelectedCountry }}>
+          <div className="Map">
+            <Map />
+            {selectedCountry == null ? null : (
+              <CountryInfo
+                name={selectedCountry.properties.name_en}
+                coords={selectedCountry.geometry.coordinates[0][0][0]}
+                code={selectedCountry.properties.iso_3166_1}
+              />
+            )}
+          </div>
+        </MapContext.Provider>
+      )}
     </div>
   );
 }

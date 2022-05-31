@@ -1,8 +1,6 @@
 import React, { useEffect, useState, uselocalstate } from "react";
 import "./loginpage.css";
-import {
-  loginUrl
-} from "../../utils/spotifyclient";
+import { loginUrl } from "../../utils/spotifyclient";
 
 import { Navigate } from "react-router-dom";
 
@@ -12,7 +10,7 @@ const Loginpage = () => {
 
   useEffect(() => {
     const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    let token = window.sessionStorage.getItem("token");
 
     if (!token && hash) {
       token = hash
@@ -22,7 +20,7 @@ const Loginpage = () => {
         .split("=")[1];
 
       window.location.hash = "";
-      window.localStorage.setItem("token", token);
+      window.sessionStorage.setItem("token", token);
     }
 
     setToken(token);
@@ -33,12 +31,10 @@ const Loginpage = () => {
       <div className="lp-content">
         <h3 className="lp-login">Login</h3>
         <p className="lp-text">
-          This app requires a connection to your Spotify account, please use the button below
-          to login
+          This app requires a connection to your Spotify account, please use the
+          button below to login
         </p>
-        <a
-          href={loginUrl}
-        >
+        <a href={loginUrl}>
           <button className="loginButton">CONNECT WITH SPOTIFY</button>
         </a>
       </div>
