@@ -12,6 +12,7 @@ export default function CountryInfo(props) {
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(null);
+  const [playlistId, setPlaylistId] = useState("");
   const token = window.localStorage.getItem("token");
   const getPlaylistId = async () => {
     console.log(token);
@@ -33,7 +34,7 @@ export default function CountryInfo(props) {
       const id = filteredArray.find((item) =>
         item.name.includes("Topp 50 – ") || item.name.includes("Super Idol")
       ).id;
-      console.log("ID: " + id);
+      setPlaylistId(id);
       const response = await axios.get(
         "https://api.spotify.com/v1/playlists/" + id,
         {
@@ -113,13 +114,15 @@ export default function CountryInfo(props) {
           }}
         >
           <animated.div className="songContainer" style={spring}>
-            {tracks.map((track) => {
+            {tracks.map((track, index) => {
               return (
                 <div onClick={() => ShowDetails(track.track)}>
                   <Song
                     token={token}
                     trackEndpoint={track.track.href}
                     song={track.track}
+                    index={index}
+                    playlistId={playlistId}
                   />
                 </div>
               );

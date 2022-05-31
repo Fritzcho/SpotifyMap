@@ -1,11 +1,6 @@
 import React, { useEffect, useState, uselocalstate } from "react";
 import "./loginpage.css";
 import {
-  CLIENT_ID,
-  CLIENT_SECRET,
-  REDIRECT_URI,
-  RESPONSE_TYPE,
-  AUTH_ENDPOINT,
   loginUrl
 } from "../../utils/spotifyclient";
 
@@ -38,7 +33,7 @@ const Loginpage = () => {
       <div className="lp-content">
         <h3 className="lp-login">Login</h3>
         <p className="lp-text">
-          This app requires a connection to your Spotify account, please use the butten below
+          This app requires a connection to your Spotify account, please use the button below
           to login
         </p>
         <a
