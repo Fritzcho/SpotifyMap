@@ -70,7 +70,6 @@ export default function CountryInfo(props) {
       console.log(response.data.tracks.items);
       setTracks(response.data.tracks.items);
     } catch (err) {
-      setLoading(true);
       console.log(err);
       const lastFmTrack = await getLastFmCharts();
 
