@@ -38,7 +38,7 @@ const Navbar = () => {
           <Link to="/contact">Contact</Link>
         </p>
       </div>
-      {window.localStorage.getItem("token") ? (
+      {window.sessionStorage.getItem("token") ? (
         <div className="smap-navbar--logout">
           <Link to="/login">
             <button onClick={logout}>Log out</button>
