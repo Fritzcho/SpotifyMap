@@ -9,7 +9,7 @@ function Song(props) {
   const [loading, setLoading] = useState(song == null);
   const token = window.sessionStorage.getItem("token");
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (song != null) return;
     const fetchData = async () => {
       const res = await GET_TRACK(props.token, props.trackEndpoint);
@@ -25,24 +25,38 @@ function Song(props) {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, []);*/
 
   const playSong = async () => {
-    console.log(song.href);
-    await fetch("	https://api.spotify.com/v1/me/player/play", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        context_uri: "spotify:playlist:" + props.playlistId,
-        offset: {
-          position: props.index,
+    if (props.playListId) {
+      console.log(song.href);
+      await fetch("	https://api.spotify.com/v1/me/player/play", {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        position_ms: 0,
-      }),
-    });
+        body: JSON.stringify({
+          context_uri: "spotify:playlist:" + props.playlistId,
+          offset: {
+            position: props.index,
+          },
+          position_ms: 0,
+        }),
+      });
+    } else {
+      console.log(song.href);
+      await fetch("https://api.spotify.com/v1/me/player/play", {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          uris: ["spotify:track:" + song.id],
+        }),
+      });
+    }
   };
 
   const springMain = useSpring({

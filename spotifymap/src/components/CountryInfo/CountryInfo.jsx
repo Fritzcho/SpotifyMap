@@ -19,21 +19,25 @@ export default function CountryInfo(props) {
 
   const getLastFmCharts = async () => {
     const lastFmRes = await getTopTracks(props.name);
-    console.log(lastFmRes);
+    //console.log(lastFmRes);
 
     const res = await Promise.all(
       lastFmRes.tracks.track.map(async (track) => {
         const spotifyTrack = await queryTrack(track.name, track.artist.name);
-        if (spotifyTrack != undefined) return spotifyTrack.tracks.items[0];
+        if (spotifyTrack != undefined)
+          return {
+            track: spotifyTrack.tracks.items[0],
+            href: spotifyTrack.tracks.items[0].href,
+          };
       })
     );
 
-    console.log(res);
+    //console.log(res);
     return res;
   };
 
   const getPlaylistId = async () => {
-    console.log(token);
+    //    console.log(token);
     try {
       console.log("COUNTRY CODE: " + props.code);
       const name =
@@ -56,24 +60,28 @@ export default function CountryInfo(props) {
       const id = filteredArray.find(
         (item) =>
           item.name.includes("Topp 50 – ") || item.name.includes("Super Idol")
-      ).id;
-      setPlaylistId(id);
-      const response = await axios.get(
-        "https://api.spotify.com/v1/playlists/" + id,
-        {
-          headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response.data.tracks.items);
-      setTracks(response.data.tracks.items);
-    } catch (err) {
-      console.log(err);
-      const lastFmTrack = await getLastFmCharts();
+      )?.id;
 
-      setTracks(lastFmTrack ? lastFmTrack : []);
+      if (id) {
+        setPlaylistId(id);
+        const response = await axios.get(
+          "https://api.spotify.com/v1/playlists/" + id,
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        //console.log(response.data.tracks.items);
+        setTracks(response.data.tracks.items);
+      } else {
+        setPlaylistId(null);
+        const lastFmTrack = await getLastFmCharts();
+        setTracks(lastFmTrack || !lastFmTrack.error ? lastFmTrack : []);
+      }
+    } catch (err) {
+      //console.log(err);
     }
 
     setLoading(false);
@@ -84,6 +92,10 @@ export default function CountryInfo(props) {
     setShowDetails(null);
     getPlaylistId();
   }, [selectedCountry]);
+
+  useEffect(() => {
+    console.log(tracks);
+  }, [tracks]);
 
   useEffect(() => {}, [tracks]);
 
@@ -139,7 +151,7 @@ export default function CountryInfo(props) {
           <animated.div className="songContainer" style={spring}>
             {tracks.map((track, index) => {
               return (
-                <div onClick={() => ShowDetails(track.track)}>
+                <div onClick={() => setShowDetails(track.track)}>
                   <Song
                     token={token}
                     trackEndpoint={track.href}
@@ -159,7 +171,7 @@ export default function CountryInfo(props) {
                 </button>
                 <SongDetails
                   token={token}
-                  trackEndpoint={showDetails.track.href}
+                  trackEndpoint={showDetails.href}
                   song={showDetails}
                 />
               </div>
