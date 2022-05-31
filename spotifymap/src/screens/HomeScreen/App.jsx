@@ -40,6 +40,17 @@ function App() {
     setToken(token);
   }, []);
 
+  useEffect(() => {
+    var timeNow = new Date();
+
+    var currentTime = timeNow.getTime();
+
+    if (currentTime >= window.sessionStorage.getItem("time")) {
+      setToken(null);
+      window.sessionStorage.removeItem("token");
+    }
+  }, [selectedCountry]);
+
   return (
     <div className="App">
       {/*<SongDetails token={token} trackEndpoint="https://api.spotify.com/v1/tracks/2HyYRvNNtNIxDZP2KJjhYI"></SongDetails> FÖR TESTING PURPOSES*/}

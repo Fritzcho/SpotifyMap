@@ -11,6 +11,10 @@ const Loginpage = () => {
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.sessionStorage.getItem("token");
+    var timeNow = new Date();
+    var time = timeNow.getTime() + 55 * 60000;
+
+    window.sessionStorage.setItem("time", time);
 
     if (!token && hash) {
       token = hash
