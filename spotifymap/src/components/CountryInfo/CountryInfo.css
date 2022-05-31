@@ -73,6 +73,7 @@
   .songContainer::-webkit-scrollbar {
     border-radius: 30px;
     width: 10px;
+    background: none;
   }
 
   .songContainer::-webkit-scrollbar-button:start {
