@@ -68,10 +68,15 @@ export default function CountryInfo(props) {
         }
       );
       console.log(response.data.name);
-      setTracks(response.data.tracks.items);
+
+      if (response.data.tracks.items != null) {
+        setTracks(response.data.tracks.items);
+      }
     } catch (err) {
       console.log(err);
-      setTracks([]);
+      const lastFmTrack = await getLastFmCharts();
+
+      setTracks(lastFmTrack ? lastFmTrack : []);
     }
 
     setLoading(false);
