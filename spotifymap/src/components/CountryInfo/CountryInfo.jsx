@@ -44,7 +44,7 @@ export default function CountryInfo(props) {
         props.code === "CZ"
           ? "Topp 50 - tjeckien"
           : props.code === "CN"
-          ? "Super Idol"
+          ? "china memes"
           : "Topp 50 - " + props.name;
       const { data } = await axios.get(
         `https://api.spotify.com/v1/search?q=${name}&type=playlist&include_external=audio`,
@@ -59,7 +59,7 @@ export default function CountryInfo(props) {
       var filteredArray = data.playlists.items;
       const id = filteredArray.find(
         (item) =>
-          item.name.includes("Topp 50 – ") || item.name.includes("Super Idol")
+          item.name.includes("Topp 50 – ") || item.name.includes("memes")
       )?.id;
 
       if (id) {
@@ -151,7 +151,7 @@ export default function CountryInfo(props) {
           <animated.div className="songContainer" style={spring}>
             {tracks.map((track, index) => {
               return (
-                <div onClick={() => setShowDetails(track.track)}>
+                <div class="singleSong" onClick={() => setShowDetails(track.track)}>
                   <Song
                     token={token}
                     trackEndpoint={track.href}
