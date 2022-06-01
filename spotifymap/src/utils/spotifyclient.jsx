@@ -8,7 +8,6 @@ export const GET_TRACK = async (token, trackEndpoint) =>{
         method: 'GET',
         headers: {'Authorization': `Bearer ${token}`,'Content-Type': 'json', 'Accept': 'json'}
     });
-    console.log(res)
     return res;
 }
 
