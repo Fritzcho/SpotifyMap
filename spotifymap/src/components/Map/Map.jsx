@@ -104,7 +104,6 @@ function Map() {
               { hover: false }
             );
           }
-          //setFocusedCountry(e.features[0].properties.iso_3166_1_alpha_3);
           hoveredCountry = e.features[0].id;
           map.current.setFeatureState(
             {
