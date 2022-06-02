@@ -28,7 +28,7 @@ function Song(props) {
   }, []);*/
 
   const playSong = async () => {
-    if (props.playListId) {
+    if (props.playlistId) {
       console.log(song.href);
       await fetch("	https://api.spotify.com/v1/me/player/play", {
         method: "PUT",
