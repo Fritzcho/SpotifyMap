@@ -3,6 +3,7 @@ import "./navbar.css";
 import App from "../../screens/HomeScreen/App";
 import { Link } from "react-router-dom";
 
+
 const Navbar = () => {
   const [token, setToken] = useState("");
   const [loggedIn, setLoggedIn] = useState(true);
@@ -20,11 +21,12 @@ const Navbar = () => {
     <div className="smap__navbar">
       <div className="logoHolder">
         <a href="/">
-          <p>
+          {/* <p>
             <b>
               SPOTIFY<sup>®</sup> MAP
             </b>
-          </p>
+          </p> */}
+          <img src={require('../../assets/Spotify_Logo_RGB_Green.png')} width='100px'/>
         </a>
       </div>
       <div className="smap__navbar--links">
