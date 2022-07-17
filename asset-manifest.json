@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/SpotifyMap/static/css/main.2112a8e7.css",
-    "main.js": "/SpotifyMap/static/js/main.193555b2.js",
+    "main.js": "/SpotifyMap/static/js/main.251f1a57.js",
     "static/media/play.png": "/SpotifyMap/static/media/play.99291605fdec4ba856bd.png",
     "static/media/Spotify_Logo_RGB_Green.png": "/SpotifyMap/static/media/Spotify_Logo_RGB_Green.0c4ae91bae23217d39c9.png",
     "index.html": "/SpotifyMap/index.html",
     "main.2112a8e7.css.map": "/SpotifyMap/static/css/main.2112a8e7.css.map",
-    "main.193555b2.js.map": "/SpotifyMap/static/js/main.193555b2.js.map"
+    "main.251f1a57.js.map": "/SpotifyMap/static/js/main.251f1a57.js.map"
   },
   "entrypoints": [
     "static/css/main.2112a8e7.css",
-    "static/js/main.193555b2.js"
+    "static/js/main.251f1a57.js"
   ]
 }
